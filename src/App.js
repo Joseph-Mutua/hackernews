@@ -20,6 +20,11 @@ const list = [
   },
 ];
 
+function isSearched(searchTerm) {
+  return function(item) {
+    return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+  }
+}
 class App extends Component {
   constructor(props) {
     super(props);
@@ -48,12 +53,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+
         <form>
           <input type="text" onChange={this.onSearchChange} />
         </form>
-        {this.state.list.filter(...).map(item =>
+
+        {this.state.list.filter(isSearched(this.state.searchTerm)).map(item =>
           <div key={item.objectID}>
-            ...
             <span>
               <button
                 onClick={() => this.onDismiss(item.objectID)}
@@ -63,7 +69,7 @@ class App extends Component {
               </button>
             </span>
           </div>
-        ))}
+        )}
       </div>
     );
   }
